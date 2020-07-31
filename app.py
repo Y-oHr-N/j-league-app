@@ -36,7 +36,22 @@ year_start = 1992
 year_end = now.year
 years = np.arange(year_start, year_end + 1)
 
-year = st.selectbox("Which year's game results would you like to see?", years)
+year = st.sidebar.selectbox("Which year's game results would you like to see?", years)
 df = fetch_j_league_schedule(year=year)
 
 st.write(df)
+
+st.write("The total number of attendees varies as follows.")
+
+grouped = df.groupby(["Tournaments", pd.Grouper(key="Datetime", freq="D")])
+res = grouped["Att."].sum()
+res = res.unstack(fill_value=0, level="Tournaments")
+
+res.sort_index(inplace=True)
+
+# Avoid a ValueError raised by altair
+res.columns = list(res.columns)
+
+res = res.cumsum()
+
+st.line_chart(res)
