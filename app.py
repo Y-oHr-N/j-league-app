@@ -6,6 +6,7 @@ import requests
 import streamlit as st
 
 
+@st.cache
 def fetch_j_league_schedule(year: int = 1992) -> pd.DataFrame:
     """Load J League schedule dataset."""
     url = "https://data.j-league.or.jp/SFMS01/search"
