@@ -39,7 +39,7 @@ years = np.arange(year_start, year_end + 1)
 year = st.sidebar.selectbox("Which year's game results would you like to see?", years)
 df = fetch_j_league_schedule(year=year)
 
-st.write(df)
+st.write(df.style.background_gradient(cmap='Blues', subset=["Att."]))
 
 st.write("The total number of attendees varies as follows.")
 
