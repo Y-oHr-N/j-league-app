@@ -29,14 +29,15 @@ def fetch_j_league_schedule(year: int = 1992) -> pd.DataFrame:
     return df
 
 
-st.title("J League Application")
-
 now = datetime.datetime.now()
 year_start = 1992
 year_end = now.year
 years = np.arange(year_start, year_end + 1)
 
 year = st.sidebar.selectbox("Which year's game results would you like to see?", years)
+
+st.title("J League Application")
+
 df = fetch_j_league_schedule(year=year)
 
 st.write(df.style.background_gradient(cmap='Blues', subset=["Att."]))
