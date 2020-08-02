@@ -35,12 +35,9 @@ year_end = now.year
 years = np.arange(year_start, year_end + 1)
 
 year = st.sidebar.selectbox("Which year's game results would you like to see?", years)
-
-st.title("J League Application")
-
 df = fetch_j_league_schedule(year=year)
 
-st.write(df.style.background_gradient(cmap="Blues", subset=["Att."]))
+st.title("J League Application")
 
 st.write("The total number of attendees varies as follows.")
 
@@ -62,3 +59,12 @@ res.sort_index(inplace=True)
 res = res.cumsum()
 
 st.line_chart(res)
+
+st.write("The result of each game are as follows.")
+
+expr = st.text_input("Insert a query string to evaluate.", 'Home == "Kashima"')
+
+if expr:
+    df = df.query(expr)
+
+st.write(df.style.background_gradient(cmap="Blues", subset=["Att."]))
