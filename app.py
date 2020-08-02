@@ -48,10 +48,16 @@ grouped = df.groupby(["Tournaments", pd.Grouper(key="Datetime", freq="D")])
 res = grouped["Att."].sum()
 res = res.unstack(fill_value=0, level="Tournaments")
 
-res.sort_index(inplace=True)
-
 # Avoid a ValueError raised by altair
-res.columns = list(res.columns)
+columns = list(res.columns)
+res.columns = columns
+
+columns = st.multiselect("Choose tournaments to display.", columns, default=columns)
+
+if columns:
+    res = res[columns]
+
+res.sort_index(inplace=True)
 
 res = res.cumsum()
 
