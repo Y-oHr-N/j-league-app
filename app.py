@@ -40,7 +40,7 @@ st.title("J League Application")
 
 df = fetch_j_league_schedule(year=year)
 
-st.write(df.style.background_gradient(cmap='Blues', subset=["Att."]))
+st.write(df.style.background_gradient(cmap="Blues", subset=["Att."]))
 
 st.write("The total number of attendees varies as follows.")
 
